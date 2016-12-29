@@ -36,7 +36,8 @@ a {
 h1, h2 {
     color: #a955ed !important;
 }
-nav, .navbar, nav.navbar-inverse, a.navbar-brand, .navbar-nav, a, a:hover{
+nav, .navbar, nav.navbar-inverse, a.navbar-brand, .navbar-nav, a, a:hover
+{
     color: #a955ed !important;
 }
 textarea:focus, input[type="text"]:focus, input[type="password"]:focus,
@@ -48,6 +49,13 @@ input[type="url"]:focus, input[type="search"]:focus,
 input[type="tel"]:focus, input[type="color"]:focus,
 .uneditable-input:focus, .input-group-addon {
     border-color: #a955ed !important;
+}
+.btn,
+.btn-default, .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default:visited
+.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary.focus,
+.btn-primary:active, .btn-primary.active, .btn-primary:visited,
+.btn-primary:active:hover, .btn-primary.active:hover{
+    background-color: #a955ed !important;
 }
 body{
     color: #d7b8f7;
