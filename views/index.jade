@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    p Welcome to #{title}
+
+block game-area
+    .square
+    //li(ng-repeat="player in players|{{score}}").
+        //{{player.name}} {{player.score}}
+
+block right-pane
+    .right
+        //Dynamic global leader board. Game score in game area.
+        h3 Leader Board
+        ol
+            li(ng-repeat="user in users|{{apints}}").
+                {{user.name}} {{user.apoints}}

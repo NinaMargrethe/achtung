@@ -1,0 +1,54 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+/*
+a {
+  color: #00B7FF;
+}
+*/
+.wrapper{
+    width: 100%;
+}
+.right{
+    float:right;
+}
+.left{
+    float: left;
+}
+
+.square {
+    float: left;
+    height: 80vh;
+    width: 80vh;
+    background-color: #92993e;
+}
+
+.square:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+
+/*Override darkstrap-blue to darkstrap-nl*/
+h1, h2 {
+    color: #a955ed !important;
+}
+nav, .navbar, nav.navbar-inverse, a.navbar-brand, .navbar-nav, a, a:hover{
+    color: #a955ed !important;
+}
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus,
+input[type="datetime"]:focus, input[type="datetime-local"]:focus,
+input[type="date"]:focus, input[type="month"]:focus,
+input[type="time"]:focus, input[type="week"]:focus,
+input[type="number"]:focus, input[type="email"]:focus,
+input[type="url"]:focus, input[type="search"]:focus,
+input[type="tel"]:focus, input[type="color"]:focus,
+.uneditable-input:focus, .input-group-addon {
+    border-color: #a955ed !important;
+}
+body{
+    color: #d7b8f7;
+}
