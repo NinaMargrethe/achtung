@@ -7,7 +7,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Achtung die Einh\u00F6rner', message: "Achtung die Einh\u00F6rner" });
+  res.render('index', {
+      title: 'Achtung die Einh\u00F6rner',
+      message: "Game on!"
+  });
 });
 
 function GameServer(){
