@@ -1,15 +1,42 @@
+var config = require('./config/config.js');
+
 var express = require('express');
+var app = express();
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var esession = require('express-session');
+var connect = require('connect');
+var MongoStore = require('connect-mongo')(esession);
+
+//Mongoose
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
+var Factory = require('./models/factory.js');
+mongoose.connect(config.dburl);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log("DB connected");
+});
+var factory = new Factory(Schema, mongoose);
+factory.createSchemas();
+var testUser = new factory.User({
+    username: config.testuser_uname,
+    password: config.testuser_pw
+})
+testUser.save(function (err) {
+    if (err) return handleError(err);
+    console.log("Testuser saved");
+    console.log(""+testUser.password);
+})
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
-var app = express();
 var sess;
 
 // view engine setup
@@ -19,48 +46,16 @@ app.set('view engine', 'jade');
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/stylesheets',express.static(path.join(__dirname, '/stylesheets')));
 app.use('/', index);
-app.use('/users', users);
-// uncomment after placing your favicon in /public
+//app.use('/users', users);
 app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(esession({secret: 'boid'})); //TODO remove hard coded secret
+app.use(require('cookie-parser')(config.cookie_secret));
 
 app.listen(3000, function () {
-    console.log('Example app listening on port 3000!')
+    console.log('Example app listening on port 3000!');
 });
-
-app.post('/login',function(req,res){
-    sess = req.session;
-//In this we are assigning uname to session.uname variable.
-//uname comes from HTML page.
-    sess.uname = req.body.uname;
-    res.end('done');
-});
-
-app.get('/logout',function(req,res){
-    req.session.destroy(function(err) {
-        if(err) {
-            console.log(err);
-        } else {
-            res.redirect('/');
-        }
-    });
-});
-
-app.get('/join',function(req,res){ //Can't join game without logging in
-    sess = req.session;
-    if(sess.uname) {
-        res.write('<h1>Hello '+sess.uname+'</h1>');
-        res.end('<a href="+">Logout</a>');
-    } else {
-        res.write('<h1>Please login first.</h1>');
-        res.end('<a href="+">Login</a>');
-    }
-});
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
